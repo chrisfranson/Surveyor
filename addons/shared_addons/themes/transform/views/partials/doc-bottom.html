@@ -1,0 +1,78 @@
+{{ theme:partial name="footer" }}
+
+<!--[if lt IE 7 ]>
+	<script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+	<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+<![endif]-->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{ theme:js_path file="jquery/core/jquery-1.11.1.js" }}/"><\/script>')</script>
+
+<?php
+Asset::add_group('js', 'theme_js', array(
+	'modernizr.custom.js',
+	'jquery/plugins/jquery.bgiframe.js',
+	'jquery/plugins/jquery.mousewheel.min.js',
+	'jquery/plugins/jquery.numeric.js',
+	'jquery/plugins/jquery.ba-throttle-debounce.js',
+	'jquery/plugins/jquery.scrollTo.js',
+
+	'jquery/plugins/jquery.isotope.pkgd.js',
+	// 'jquery/ui/widgets/jquery.ui.core.min.js',
+	// 'jquery/ui/widgets/jquery.ui.widget.min.js',
+	// 'jquery/ui/widgets/jquery.ui.button.min.js',
+	'jquery/plugins/jquery.mousewheel.js',
+	'jquery/plugins/jquery.mwheelIntent.js',
+	'jquery/plugins/jScrollPane/jquery.jscrollpane.js',
+	// '/modules/connect/connect.js',
+
+	'bootstrap.js',
+	'jquery/plugins/jquery.fitvids.js',
+	'jquery/plugins/jquery.easing.js',
+	'jquery/plugins/jquery.sticker.js',
+	'jquery/plugins/fancybox/jquery.fancybox.pack.js',
+	'jquery/plugins/fancybox/helpers/jquery.fancybox-media.js',
+), array('min'=>true, 'combine'=>true));
+
+echo Asset::render_js('theme_js');
+
+if ($this->template->page):
+
+	Asset::add_group('js', 'page_js', array(
+		'pages/page.js',
+	), array('min'=>true, 'combine'=>true));
+
+	$layout_js_file = 'pages/' . $this->template->page->layout->slug . '.js';
+
+	if (file_exists($this->template->get_theme_path() . '/js/' . $layout_js_file)):
+		Asset::js($layout_js_file, false, 'page_js');
+	endif;
+
+	echo Asset::render_js('page_js');
+
+endif;
+
+?>
+
+{{ if theme:options:sitewide_js }}
+
+<script type="text/javascript">
+	{{ theme:options:sitewide_js }}
+</script>
+{{ endif }}
+
+<?php if ($this->template->page AND ($this->template->page->layout->js OR $this->template->page->js)): ?>
+
+<script type="text/javascript">
+<?php echo $page->layout->js; ?>
+
+<?php echo $page->js; ?>
+
+</script>
+
+<?php endif; ?>
+
+<?php echo Asset::render_js('module_js'); ?>
+
+</body>
+</html>
