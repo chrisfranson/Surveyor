@@ -21,4 +21,4 @@
 */
 
 // front-end
-$route['imagery(/:any)?']			= 'imagery/index$1';
+$route['surveyor(/:any)?']			= 'surveyor/index$1';
