@@ -58,6 +58,6 @@ $route['edit-profile']	                    = 'users/edit';
 $route['sitemap.xml']                       = 'sitemap/xml';
 
 $route['imagery']							= 'surveyor';
-$route['imagery(/:any)?']					= 'surveyor/index$1';
+$route['imagery/list(/:any)?']				= 'surveyor/dirlist$1';
 
 /* End of file routes.php */

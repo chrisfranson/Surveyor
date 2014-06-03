@@ -21,4 +21,4 @@
 */
 
 // front-end
-$route['surveyor(/:any)?']			= 'surveyor/index$1';
+$route['surveyor/list(/:any)?']		= 'surveyor/dirlist$1';
